@@ -1,0 +1,83 @@
+[Config]
+Compilator.SaveAll=0
+Compilator.Capture=0
+Compilator.HideOutput=0
+Compilator.LogType=0
+DefaultCPIndex=0
+LogtoEnd=1
+DontOpen=0
+AbsolutePath=0
+FileFormat=0
+ProjectFilesOnly=0
+[Project tree]
+Nový projekt
+	+main
+		gameWorker.js
+		index.php
+	+old
+		main.js
+	+lib
+		Vec2Float.js
+		VecFunctions.js
+		keyCodes.js
+	+view
+		rendering.js
+	+logic
+		+remote
+			line.js
+		game.js
+		player.js
+		pixels.js
+		controls.js
+[Open project files]
+0=rendering.js
+1=index.css
+2=line.js
+3=player.js
+4=game.js
+5=Vec2Float.js
+6=VecFunctions.js
+7=main.js
+8=controls.js
+9=keyCodes.js
+10=pixels.js
+11=eventproxy.js
+[Selected Project Files]
+Main=
+Selected=eventproxy.js
+[rendering.js]
+TopLine=1
+Caret=1,1
+[index.css]
+TopLine=1
+Caret=1,1
+[line.js]
+TopLine=15
+Caret=22,48
+[player.js]
+TopLine=1
+Caret=1,1
+[game.js]
+TopLine=50
+Caret=21,68
+[Vec2Float.js]
+TopLine=1
+Caret=1,1
+[VecFunctions.js]
+TopLine=1
+Caret=1,1
+[main.js]
+TopLine=1
+Caret=1,1
+[controls.js]
+TopLine=42
+Caret=40,75
+[keyCodes.js]
+TopLine=1
+Caret=1,1
+[pixels.js]
+TopLine=51
+Caret=14,68
+[eventproxy.js]
+TopLine=103
+Caret=52,109

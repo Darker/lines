@@ -1,0 +1,10 @@
+/home/ubuntu/workspace/lines/eventproxy.js:28
+        this.connections[i].eventSend(name, params);
+                            ^
+TypeError: Cannot call method 'eventSend' of undefined
+    at GameEventProxy.eventSend (/home/ubuntu/workspace/lines/eventproxy.js:28:29)
+    at EventEmitter.game.onAny.onAnyCb (/home/ubuntu/workspace/lines/eventproxy.js:44:15)
+    at EventEmitter.emit (/home/ubuntu/workspace/lines/eventemitter2.js:280:22)
+    at EventEmitter.LineGameMaster.frame (/home/ubuntu/workspace/lines/game.js:401:10)
+    at animate [as _onTimeout] (/home/ubuntu/workspace/lines/game.js:364:13)
+    at Timer.listOnTimeout [as ontimeout] (timers.js:112:15)

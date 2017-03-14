@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <meta name="generator" content="PSPad editor, www.pspad.com"/>
+  <meta name="author" content="Jakub Mareda"/>
+  <title>Lines</title>
+  <link rel="stylesheet" type="text/css" href="index.css"/>
+  <link rel="stylesheet" type="text/css" href="jquery-ui.css"/>
+  <link rel="stylesheet" type="text/css" href="jquery-ui-skin.css"/>
+  </head>
+  <body>
+
+    <script type="text/javascript" src="require.js"></script>
+    <script type="text/javascript">
+
+      requirejs(["rendering"], function(Renderer) {
+        var dummy = function(){};
+        var r = new Renderer({on:dummy}, 500,500);
+        console.log(Renderer.shaderSrc);
+        var bg = PIXI.Sprite.fromImage("pf.jpg");
+        bg.scale.set(1,1);
+        r.init();
+        r.stage.addChild(bg);
+        r.startRendering();
+        PIXI.loader.add('shader','shader.txt');
+        PIXI.loader.once('complete',function(loader,res) 
+        {    
+          console.log(shader);
+          var filter = new PIXI.AbstractFilter(
+                  // vertex shader
+                  null,
+                  // fragment shader
+                  res.shader.data,
+                  // set the uniforms
+                  {
+                      customUniform : {type : '1f', value : 1.5},
+                      randomAspect : {type : '1f', value : 0.5},
+                      bytes :        {type: 'iv1', value : new Uint8Array([1,2,3,4,5,6,7,8,9])}
+                  }
+          );
+          bg.filters = [filter];
+          //console.log(bg);
+          var direction = 1;
+          setInterval(function() {
+            filter.uniforms.customUniform.value+=Math.random();
+            filter.uniforms.randomAspect.value+=0.01*direction*Math.random();
+            if(Math.random()>0.9) {
+              direction*=-1;
+            }
+          }, 5); 
+        }
+        );
+        setTimeout(function() {PIXI.loader.load();}, 1000);
+        
+
+      })
+      var shader = atob("cHJlY2lzaW9uIG1lZGl1bXAgZmxvYXQ7DQoNCnZhcnlpbmcgdmVjMiB2VGV4dHVyZUNvb3JkOw0KdmFyeWluZyB2ZWM0IHZDb2xvcjsNCg0KdW5pZm9ybSBzYW1wbGVyMkQgdVNhbXBsZXI7DQp1bmlmb3JtIGZsb2F0IGN1c3RvbVVuaWZvcm07DQp1bmlmb3JtIGZsb2F0IHJhbmRvbUFzcGVjdDsNCg0KZmxvYXQgcmFuZCh2ZWMyIGNvKXsNCiAgICByZXR1cm4gZnJhY3Qoc2luKGRvdChjby54eSAsdmVjMigxMi45ODk4LDc4LjIzMykpKSAqIDQzNzU4LjU0NTMpOw0KfQ0KZmxvYXQgcmFuZDIodmVjMiBjbyl7DQogICAgcmV0dXJuIGZyYWN0KGNvcyhkb3QoY28ueHkgLHZlYzIoMTIuOTg5OCw3OC4yMzMpKSkgKiA0Mzc1OC41NDUzKTsNCn0NCnZvaWQgbWFpbih2b2lkKQ0Kew0KICAgdmVjMiB1dnMgPSB2VGV4dHVyZUNvb3JkLnh5Ow0KDQogICB2ZWM0IGZnID0gdGV4dHVyZTJEKHVTYW1wbGVyLCB2VGV4dHVyZUNvb3JkKTsNCg0KICAgdXZzLnggKz0gY3VzdG9tVW5pZm9ybTsNCiAgIGZsb2F0IHN1YnRyYWN0ID0gcmFuZG9tQXNwZWN0LzIuMDsNCiAgIA0KICAgdXZzLnggKz0gZmcucjsNCiAgIGZnLnIgPSBmZy5yK3JhbmQodXZzKSpyYW5kb21Bc3BlY3Qtc3VidHJhY3Q7DQogICB1dnMueCAtPSBmZy5nOw0KICAgZmcuZyA9IGZnLmcrcmFuZDIodXZzKSpyYW5kb21Bc3BlY3Qtc3VidHJhY3Q7DQogICB1dnMueCArPSBmZy5iOw0KICAgZmcuYiA9IGZnLmcrcmFuZCh1dnMpKnJhbmRvbUFzcGVjdC1zdWJ0cmFjdDsNCg0KICAgLy9mZy5yID0gY2xhbXAoZmcuciwwLjAsMC45KTsNCg0KICAgZ2xfRnJhZ0NvbG9yID0gZmc7DQoNCn0NCg==");
+    
+    </script>
+  </body>
+</html>

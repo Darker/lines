@@ -1,0 +1,243 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #000000;
+  color: white;   
+  overflow: hidden;
+}
+
+button {
+  border: 1px solid white;
+  color: white;
+  background: #222;
+}
+button, input {
+  min-width: 2cm;
+  min-height: 0.8cm;
+}
+button[disabled] {
+  color: #999;
+  border-color: #AAA;
+  background-image: url('cross.svg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+canvas {                              
+  margin: 0;
+  padding: 0;
+  /*border: 1px solid red;*/
+}
+/** PLAYER LIST **/
+table.player_list {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-family: "century gothic";
+  margin-right: 10px;
+}
+table.player_list th.all_players {
+  font-size: 15pt;
+}
+table.player_list th.playerlist {
+  border-bottom: 1px solid #666;
+}
+table.player_list td.no_players {
+  color: #999;
+  font-size: 9pt;
+  font-style: italic;
+}
+table.player_list td.effects {
+  vertical-align: middle;
+  overflow: hidden;
+}
+table.player_list td.effects div.effect {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+}
+table.player_list tr.line td.name {
+  font-size: 12pt;
+}
+table.player_list tr.line.dead td.name {
+  opacity: 0.6;
+  text-decoration: line-through; 
+}
+table.player_list tr.line.playing td.name {
+  font-weight: bold;
+}
+table.player_list tr.line td.score {
+  color: yellow;
+  font-family: "Courier new", monospace;
+  font-weight: bold;
+}
+table.player_list tr.line td.icon {
+  margin: 0px;
+  padding: 0px;
+}
+table.player_list tr.line td.icon div {
+  width: 1.2em;
+  height: 1.2em;
+  margin: 0px;
+  padding: 0px;
+
+  background-image: url('image/playeroff.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+table.player_list tr.line.local td.icon div {
+  cursor: pointer;
+}
+table.player_list tr.line.active td.icon div {
+  background-image: url('image/playeron.png');
+}
+
+/** New player form **/
+#newPlayer {
+  position: absolute;
+  top:0px;
+  left:0px;
+}
+#newPlayer span.nameColor {
+  display: none;
+}
+button.plus {
+  color: red;
+  border: none;
+  background-color: transparent;
+  font-weight: bold;
+  font-size: 1cm;
+  cursor: pointer;
+  
+  opacity: .5;
+  transition: opacity .4s ease-out,
+              text-shadow .4s ease-in-out;
+}
+button.plus.emphasize {
+   text-shadow:0px 0px 8px #F00,
+               0px 0px 8px #F00,
+               0px 0px 8px #F00
+   ; 
+   opacity: 1;
+}
+button.plus:hover {
+  opacity: 1;
+}
+
+/** SELECT KEY **/
+#keySelector {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -70px;
+  width: 150px;
+  height: 100px;
+  
+  border: 1px solid white;
+  background-color: #111;
+  padding: 5px;
+  text-align: center;
+}
+#keySelector span.left, #keySelector span.right {
+  color: yellow;
+  font-weight: bold;
+}
+#keySelector .left span.right {
+  display: none;
+}
+#keySelector .right span.left {
+  display: none;
+}
+#keySelector div.key {
+  color: white;
+  font-size: 20pt;
+  border: 1px dashed white;
+  margin: 2px auto 2px auto;
+  display: inline-block;
+  font-family: "Courier new", monospace;
+  padding: 3px;
+  cursor: default;
+}
+#keySelector div.key.none {
+  color: #999;
+}
+#keySelector div.key.taken {
+  color: red;
+}
+#keySelectorOk {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.outer {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    pointer-events: none;
+}
+
+.middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+#initializing {
+    text-align: center;
+    color: white;
+    font-family: system, "ms sans serif", courier;
+    padding: 0px;
+    
+}
+#initializing .inner {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto; 
+    background-color: rgba(0,0,0,0.3);
+    border: 1px solid white;
+    padding: 5px;
+}
+#initializing ul {
+    /*display: inline-block; */
+    text-align: left;
+}
+#initializing ul li {
+  color: yellow;
+}
+#initializing ul li.failed {
+  color: red;
+}
+#initializing ul li.success {
+  color: green;
+}
+#anouncement {
+    margin-left: auto;
+    margin-right: auto; 
+    width: 80vw;
+    text-align: center;
+    color: red;
+    font-family: system, "ms sans serif", courier;
+    font-size: 60pt;
+    padding: 0px;
+    text-shadow:
+     -1px -1px 0 #FFF,  
+      1px -1px 0 #FFF,
+      -1px 1px 0 #FFF,
+       1px 1px 0 #FFF;
+}
+#anouncement.socketDisconnected {
+  font-family: "Courier new";
+  font-size: 40pt;
+  color: #900;
+  /*color: rgba(255,0,0,.5); */
+  text-shadow:
+     -1px -1px 0 #F00,  
+      1px -1px 0 #F00,
+      -1px 1px 0 #F00,
+       1px 1px 0 #F00;
+}

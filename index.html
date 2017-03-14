@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <meta name="generator" content="PSPad editor, www.pspad.com"/>
+  <meta name="author" content="Jakub Mareda"/>
+  <title>Lines</title>
+  <link rel="stylesheet" type="text/css" href="index.css"/>
+  <link rel="stylesheet" type="text/css" href="jquery-ui.css"/>
+  <link rel="stylesheet" type="text/css" href="jquery-ui-skin.css"/>
+  </head>
+  <body>
+  <div class="outer" id="anouncement_container" style="display:none">
+    <div class="middle">
+      <div class="inner" id="anouncement">
+          
+      </div>
+    </div>
+  </div>
+  <div id="newPlayer" style="display: none">
+    <button class="plus">+ NEW PLAYER</button>
+    <span class="nameColor">
+      Name: <input type="text" pattern="^[a-zA-Z0-9ěščřžýáíéúůúťľ _ -]+$" id="playerName" placeholder="Player name" />
+      Color: <input type="color" id="playerColor" />
+      <button class="ok" id="newPlayerOk">OK</button>
+    </span>
+  </div>
+  <div id="keySelector">
+    <div class="intro">Select <span class="left">left</span><span class="right">right</span> control key.</div>
+    <div><div class="key none">?</div></div>
+    <button id="keySelectorOk" disabled="disabled">Use key</button> 
+  </div>
+
+  <div id="initializing" class="outer">
+    <div class="middle"><div class="inner">
+       <h2>Initializing...</h2>
+       <ul>
+         <li class="JQuery">JQuery and jquery UI</li>
+         <li class="Game">Game classes and socket IO connection.</li>
+       </ul>
+    </div></div>
+  </div>
+  <!-- ui-dialog -->
+  <div id="ui_dialog" style="display: none">
+  	<p class="text">
+  	    
+    </p>
+  </div>
+    <script type="text/javascript" data-main="main.js" src="require.js"></script>
+   <!--
+      /*
+      Inheritance test:
+function Parent(name) {
+    this.name = name;
+}
+Parent.prototype.fullName = function() {
+  return this.getRole() + ": " + this.name;
+}
+Parent.prototype.getRole = function() {
+  return "Parent";
+}
+
+function Child(name) {
+     //Call superconstructor
+     Parent.apply(this, arguments);
+}
+Child.prototype = Object.create(Parent.prototype);
+Child.prototype.getRole = function() {
+    return "Child"; 
+}
+
+var child = new Child("Peter");
+child.getRole();
+ */ -->
+<!--    <p>
+      Type SPACE to restart the game. Type P to add player while game is not running.
+    </p>  -->
+  </body>
+</html>
