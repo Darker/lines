@@ -257,7 +257,7 @@ define(["eventemitter2", "pixels", "line", "pixels", "effect"], function(EventEm
     for(var i=0; i<l; i++) { 
       var li = this.lines[i];
       // Inactive lines can be skipped as well as dead ones
-      if(!li.active || li.dead)
+      if(li.dead || (this.playingLines && this.playingLines.indexOf(li)==-1))
         continue;
       //If this is local and we look for local forget all non-local and skip
       //non-local in future
@@ -306,7 +306,7 @@ define(["eventemitter2", "pixels", "line", "pixels", "effect"], function(EventEm
   
   
   LineGame.prototype.gameOver = function(lines) {
-    this.playingLines = null;
+    //this.playingLines = null;
     this.emit("game.over", lines);
     this.stop();
   }
@@ -377,7 +377,7 @@ define(["eventemitter2", "pixels", "line", "pixels", "effect"], function(EventEm
   }
   LineGameMaster.prototype.gameOver = function(lines) {
     var startTime = this.gameStartTime;
-    var t = ((new Date().getTime())-startTime)/1000;
+    var t = ((new Date().getTime())-startTime)/1000.0;
     // All winners have current time as dead time
     for(var i=0,l=lines.length; i<l; i++) {
       lines[i].deadTime = t;

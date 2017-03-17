@@ -218,7 +218,7 @@ define(requires, function() {
   /** AFK buster **/
   Filter.out.GAME_OVER_AFK_BUST = new Filter("game.over", 
     function(name, params, game) {
-      this.ownedLines.forEach(function(line) {
+      game.playingLines.forEach(function(line) {
         if(line.lastActivity<game.gameStartTime) {
           game.activateLine(line, false);
         }
