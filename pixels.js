@@ -88,7 +88,7 @@ define(function() {
         throw e;
       }
     }
-    console.log("Pixels claimed for "+line.name);
+    //console.log("Pixels claimed for "+line.name);
   }
   /**
    * Test whether multiple pixels are free. */  

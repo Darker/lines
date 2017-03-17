@@ -197,7 +197,7 @@ define(["pixi.min", "text!shader.txt"], function(PIXI, shader) {
       var px = this.pixels[i];
       if(!px.hasChanged() && !this.forcerender)
         continue;
-      console.info("Redraw!");
+      //console.info("Redraw!");
       redrawStart();
       lineColorCache = {};
       var ar = px.array;
