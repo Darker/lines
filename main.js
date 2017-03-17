@@ -1,3 +1,22 @@
+/*    at GameEventProxy.eventReceived (/home/ubuntu/workspace/eventproxy.js:16:22)                                                                       
+    at SocketEventCon.parseEvent (/home/ubuntu/workspace/eventproxy.js:234:24)                                                                         
+    at Socket.io.on.evtList (/home/ubuntu/workspace/eventproxy.js:184:15)                                                                              
+    at emitTwo (events.js:87:13)                                                                                                                       
+    at Socket.emit (events.js:172:7)                                                                                                                   
+/home/ubuntu/workspace/eventproxy.js:255                                                                                                               
+    if(this.outputFilters.checkAll(this, this.eventSink.game, name, args)) {                                                                           
+                         ^                                                                                                                             
+                                                                                                                                                       
+TypeError: Cannot read property 'checkAll' of undefined                                                                                                
+    at SocketEventCon.eventSend (/home/ubuntu/workspace/eventproxy.js:255:26)                                                                          
+    at SocketEventCon.parseEvent (/home/ubuntu/workspace/eventproxy.js:239:14)                                                                         
+    at Socket.io.on.evtList (/home/ubuntu/workspace/eventproxy.js:184:15)                                                                              
+    at emitTwo (events.js:87:13)                                                                                                                       
+    at Socket.emit (events.js:172:7)                                                                                                                   
+    at /home/ubuntu/workspace/node_modules/socket.io/lib/socket.js:503:12                                                                              
+    at nextTickCallbackWith0Args (node.js:436:9)                                                                                                       
+    at process._tickCallback (node.js:365:13) */    
+
 requirejs.config({
     //By default load any module IDs from js/lib
     baseUrl: '.',
