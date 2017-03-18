@@ -185,13 +185,12 @@ const START = 'https://c9.io/login';
     // I process events one by one. The reason is that I plan to implement
     // condition for breaking this loop and terminating the program
     while(true) {
-         console.log("Still running.");
          //let logEntry = await evtPromise;
          //evtPromise = new PagePollPromise(page, "CHANGE_POLL");
          //logEntry.forEach((entry)=>{console.log("LOG: ", entry)});
          let cpu = await page.evaluate(function() {
              try {
-                 return document.querySelector("div.cpu.item span").style.width*1;
+                 return document.querySelector("div.cpu.item span").getBoundingClientRect().width;
              }
              catch(e) {
                  return -1;
