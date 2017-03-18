@@ -47,6 +47,33 @@ class PageEventPromise extends Promise {
         });
     }
 }
+class PagePollPromise extends Promise {
+    constructor(page, arrayName) {
+        super(async function(resolve, reject) {
+            var result = await page.evaluate(function(name) {
+                name = name.split(".");
+                var object = self;
+                for (var i=0,l=name.length; i<l; i++)
+                {
+                    object = object[name[i]];
+                    if(object==null)
+                        return ["Undefined!!!"];
+                }
+                if(!(object instanceof Array)) {
+                    return ["NOT AN ARRAY"];
+                }
+                if(object.length==0)
+                    return object;
+                var ar = object;
+                object = [];
+                return ar;
+            }, arrayName);
+            resolve(result);
+        });
+    }
+}
+
+
 const START = 'https://c9.io/login';
 //const START = '127.0.0.1';
 
@@ -129,7 +156,7 @@ const START = 'https://c9.io/login';
         }
     }
     // All done, poll for log changes
-    let evtPromise = new PageEventPromise(page, "logEntry");
+    let evtPromise = new PagePollPromise(page, "CHANGE_POLL");
     await page.evaluate(function() {
         var observer = new MutationObserver(function(mutations) {
           mutations.forEach(function(mutation) {
@@ -142,24 +169,28 @@ const START = 'https://c9.io/login';
                  if(node.querySelector("span")!=null)
                     continue;
                  console.log(node.innerText);
+                 window.CHANGE_POLL.push(node.innerText);
                  // This is how I try to emit events from the page to NodeJS. It does not work
-                 self.dispatchEvent(new Event("logEntry", {text: node.innerText}));
+                 //self.dispatchEvent(new Event("logEntry", {text: node.innerText}));
                  // I did this to confirm that it does not work (I can see the errors in console)
                  // throwing error after timeout does not cause trouble in nodejs
-                 setTimeout(function() {throw new Error("DATA:"+node.innerText);}, 0);
+                 //setTimeout(function() {throw new Error("DATA:"+node.innerText);}, 0);
              }
           });    
         });
+        window.CHANGE_POLL = [];
         var config = { attributes: !true, childList: true, characterData: !true };
         observer.observe(document.querySelector("div.ace_layer.ace_text-layer"), config);
     });
     // I process events one by one. The reason is that I plan to implement
     // condition for breaking this loop and terminating the program
     while(true) {
-         console.log("Waiting for log...");
-         let logEntry = await evtPromise;
-         evtPromise = new PageEventPromise(page, "logEntry");
-         console.log("LOG: ", logEntry);
+         console.log("Still running.");
+         //let logEntry = await evtPromise;
+         //evtPromise = new PagePollPromise(page, "CHANGE_POLL");
+         //logEntry.forEach((entry)=>{console.log("LOG: ", entry)});
+         
+         await new TimeoutPromise(1000);
     }
 
     await instance.exit();
