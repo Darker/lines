@@ -189,7 +189,21 @@ const START = 'https://c9.io/login';
          //let logEntry = await evtPromise;
          //evtPromise = new PagePollPromise(page, "CHANGE_POLL");
          //logEntry.forEach((entry)=>{console.log("LOG: ", entry)});
-         
+         let cpu = await page.evaluate(function() {
+             try {
+                 return document.querySelector("div.cpu.item span").style.width*1;
+             }
+             catch(e) {
+                 return -1;
+             }
+         });
+         if(cpu>=0) {
+             console.log("CPU: "+(cpu*2)+"%");
+         }
+         else {
+             console.log("Disconnected, I quess...");
+             break;
+         }
          await new TimeoutPromise(1000);
     }
 
