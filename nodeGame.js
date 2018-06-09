@@ -10,16 +10,19 @@ requirejs.config({
 
 
 
-requirejs(['game', 'eventproxy', 'http', 'socket.io', 'simple-http', 'lines_settings'],
-function(Game, EventProxy, Http, SocketIo, simpleServer, settings) {
+requirejs(['game', 'eventproxy', 'http', 'socket.io', 'express', 'lines_settings'],
+function(Game, EventProxy, Http, SocketIo, express, settings) {
   var Filters;
   requirejs(["eventfilters"], function(_evfil) {
     Filters = _evfil;
   });
-  
-  var http = Http.Server(simpleServer);
-  var io = SocketIo(http);
-  
+
+  const app = express();
+  const server = Http.createServer(app);
+
+  app.use(express.static(__dirname));
+  var io = SocketIo(server);
+
   var game = new Game.Master(500, 500);
   game.name =  "MASTER";
   var proxy = new EventProxy(game);
@@ -31,13 +34,13 @@ function(Game, EventProxy, Http, SocketIo, simpleServer, settings) {
     add: function(ip) {
       if(this[ip]==null)
         this[ip]=0;
-      return ++this[ip];  
+      return ++this[ip];
     },
     remove: function(ip) {
-      this[ip]--; 
+      this[ip]--;
     }
   };
-  
+
   io.on('connection', function(socket) {
     var IP = socket.request.connection.remoteAddress;
     //console.log("Client ",IP," has connected.");
@@ -45,8 +48,8 @@ function(Game, EventProxy, Http, SocketIo, simpleServer, settings) {
       IP_SOCKET_MAP.remove(IP);
       //clearInterval(interval);
       //console.log("Client ",IP," left.");
-    }); 
-    
+    });
+
     // Check for count of connections
     var count = IP_SOCKET_MAP.add(IP);
     //console.log("IP: ",IP," COUNT: ",count);
@@ -55,7 +58,7 @@ function(Game, EventProxy, Http, SocketIo, simpleServer, settings) {
       socket.disconnect();
       return;
     }
-    
+
     //var con = EventProxy.connectUsing(game, EventProxy.SocketEventCon);
     var con = new EventProxy.SocketEventCon();
     con.server = true;
@@ -71,15 +74,15 @@ function(Game, EventProxy, Http, SocketIo, simpleServer, settings) {
     //game.init();
   });
   var port = process.env.PORT || 3000;
-  http.listen(port, function(){
+  server.listen(port, function(){
     console.log('listening on *:'+port);
   });
   game.init();
-  
+
   /*requirejs(["AIPlayer"], function(AIPlayer) {
     var line = game.createLine("AI", 0xFF0000, -1);
     var AI = new AIPlayer(game, line);
   }); */
  // function SocketGuard()
-  
+
 });
