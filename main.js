@@ -17,57 +17,35 @@ TypeError: Cannot read property 'checkAll' of undefined
     at nextTickCallbackWith0Args (node.js:436:9)
     at process._tickCallback (node.js:365:13) */
 
-//import io from "/socket.io/socket.io.js";
+import io from "/socket.io/socket.io.js";
+import Game from "./game.js";
 
-
-requirejs.config({
-    //By default load any module IDs from js/lib
-    baseUrl: '.',
-    //except, if the module ID starts with "app",
-    //load it from the js/app directory. paths
-    //config is relative to the baseUrl, and
-    //never includes a ".js" extension since
-    //the paths config could be for a directory.
-    paths: {
-        jquery: [
-            '//code.jquery.com/jquery-2.1.4.min',
-            //If the CDN location fails, load from this location
-            'jquery'
-        ],
-        "socket.io": [
-            "/socket.io/socket.io.js",
-            "socket.io.backup"
-        ]
-    },
-    waitSeconds: 20
-});
-
-requirejs.onError = function(error) {
-  if(error.requireModules)
-    error.requireModules.forEach(function(name) {
-      //Create basename in case this was an URL
-      name.replace(/^.*[/]/, "");
-      // Debug
-      console.warn("Module failed to load: ", name);
-      notifyInit(name, false);
-      // Find the loading node (they are hardcoded) and
-      // if it exists mark it as failed
-      var element = document.getElementById("loading_"+name);
-      if(element) {
-        element.className+=" failed";
-      }
-    });
-  else
-    console.error("Unexpected requirejs onError callback: ", error);
-}
-function notifyInit(name, state) {
-  document.querySelector("li."+name).className+=state?" success":" failure";
-  // Hide popup if all has been loaded
-  if(document.querySelectorAll("#initializing li").length<=document.querySelectorAll("#initializing li.success").length) {
-      // If everything is loaded, jQuery is loaded too
-      $("#initializing").hide();
-  }
-}
+// requirejs.onError = function(error) {
+//   if(error.requireModules)
+//     error.requireModules.forEach(function(name) {
+//       //Create basename in case this was an URL
+//       name.replace(/^.*[/]/, "");
+//       // Debug
+//       console.warn("Module failed to load: ", name);
+//       notifyInit(name, false);
+//       // Find the loading node (they are hardcoded) and
+//       // if it exists mark it as failed
+//       var element = document.getElementById("loading_"+name);
+//       if(element) {
+//         element.className+=" failed";
+//       }
+//     });
+//   else
+//     console.error("Unexpected requirejs onError callback: ", error);
+// }
+// function notifyInit(name, state) {
+//   document.querySelector("li."+name).className+=state?" success":" failure";
+//   // Hide popup if all has been loaded
+//   if(document.querySelectorAll("#initializing li").length<=document.querySelectorAll("#initializing li.success").length) {
+//       // If everything is loaded, jQuery is loaded too
+//       $("#initializing").hide();
+//   }
+// }
 var isMobile = false; //initiate as false
 // device detection
 if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent)
